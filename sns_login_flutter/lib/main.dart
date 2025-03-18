@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 '\n사용자 정보 요청 성공'
                 '\n회원번호: ${user.id}'
                 '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
-                '\n이메일: ${user.kakaoAccount?.email}';
+                '\n프로필 URL: ${user.kakaoAccount?.profile?.profileImageUrl}';
           });
         } catch (error) {
           setState(() {
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '\n사용자 정보 요청 성공'
               '\n회원번호: ${user.id}'
               '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
-              '\n이메일: ${user.kakaoAccount?.email}';
+              '\n프로필 URL: ${user.kakaoAccount?.profile?.profileImageUrl}';
         });
       } catch (error) {
         setState(() {

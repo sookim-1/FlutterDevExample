@@ -10,6 +10,14 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    def kakaoKey = {
+        def properties = new Properties()
+        file("${rootProject.projectDir}/../assets/config/.env").withInputStream { stream -> properties.load(stream) }
+        def kakaoKey = properties.getProperty("KAKAO_NATIVE_APP_KEY")
+        assert kakaoKey != null, "kakaoKey not set in .env"
+        return kakaoKey
+    }()
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -24,10 +32,14 @@ android {
         applicationId = "com.sookim.sns_login_flutter"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders += [
+                KAKAO_NATIVE_APP_KEY: kakaoKey
+        ]
     }
 
     buildTypes {
