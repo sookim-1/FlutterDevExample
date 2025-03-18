@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -146,9 +147,24 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _touchedGoogle() {
+  void _touchedGoogle() async {
+    print('구글로그인 클릭');
+
+    final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email'
+      ]
+    );
+
+    var user = await _googleSignIn.signIn();
+
     setState(() {
-      _snsData = '구글 로그인';
+      _snsData = '구글 로그인 성공'
+          '\n사용자 정보 요청 성공'
+          '\n회원번호: ${user?.id}'
+          '\n닉네임: ${user?.displayName}'
+          '\n이메일: ${user?.email}'
+          '\n프로필 URL: ${user?.photoUrl}';
     });
   }
 

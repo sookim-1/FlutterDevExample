@@ -43,7 +43,7 @@ Future main() async {
    //...runapp
 }
 ```
-### iOS
+### 🍎 iOS
 - `API_KEY.xcconfig` 파일 추가
   ```
   KAKAO_NATIVE_APP_KEY=123456789ab
@@ -58,7 +58,7 @@ Future main() async {
    #include "Generated.xcconfig"
   ```
 
-### 안드로이드
+### 🤖 안드로이드
 - local.properties를 활용하거나 기존 .env를 설정해도 되지만 Flutter에서는 한번에 처리하도록 .env 사용
 - app/build.gradle 설정 : minSdk 21버전으로 설정, .env의 키값을 가져와서 manifestPlaceholders에 키값 추가 (= 으로 하면 ${applicationName}에서 에러발생)
 
@@ -200,11 +200,11 @@ void _touchedKakao() async {
 
 ```
 
-### iOS URL Scheme 설정
+### 🍎 iOS URL Scheme 설정
 - Info.plist - Queried URL Schemes 배열 - Item에 `kakaokompassauth` 값 추가
 - URL Types - URL Schemes `kakao${NativeAppKey}` 추가
 
-### 안드로이드 URL Scheme 설정
+### 🤖 안드로이드 URL Scheme 설정
 - app/src/main/AndroidManifest.xml 설정
 ```
 <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
@@ -221,4 +221,34 @@ android:exported="true">
     <data android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" android:host="oauth"/>
 </intent-filter>
 </activity>
+```
+
+
+## Google Login without Firebase (Firebase 사용하지 않고 구글로그인)
+- [Google Cloud Console](https://console.cloud.google.com/)로 이동하여 GCP(Google Cloud Platform) 프로젝트 생성
+- API 및 서비스 -> OAuth 동의화면 선택
+- API 및 서비스 -> 사용자 인증 정보 -> OAtuh 2.0 클라이언트 ID 추가
+
+### 🍎 iOS 클라이언트 추가
+번들 ID 작성
+
+### 🍎 iOS URL Scheme 설정
+
+
+### 🤖 안드로이드 클라이언트 추가
+패키지명 작성
+SHA-1 인증서 지문 추가
+- 플러터프로젝트/android로 이동하여 $ ./gradlew signingReport 실행
+- 출력되는 구문 중에서 debug에 작성된 SHA-1 입력
+```
+> Task :app:signingReport
+Variant: debug
+Config: debug
+Store: /Users/sookim/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: ~
+SHA1: ~
+SHA-256: ~
+Valid until: 2053년 8월 5일 화요일
+----------
 ```
