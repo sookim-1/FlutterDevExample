@@ -37,3 +37,4 @@ Runner/GeneratedPluginRegistrant.*
 API_KEY.xcconfig
 **/GoogleService-Info.plist
 GoogleService-Info.plist
+Runner/GoogleService-Info.plist
