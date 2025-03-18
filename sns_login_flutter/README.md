@@ -233,7 +233,8 @@ android:exported="true">
 번들 ID 작성
 
 ### 🍎 iOS URL Scheme 설정
-
+- 클라이언트의 Info.plist 다운로드 후 GoogleService-Info.plist 변경 후 추가
+- URL Types - com.googleusercontent.apps.$(GOOGLE_CLOUD_PlATFORM_KEY) 추가
 
 ### 🤖 안드로이드 클라이언트 추가
 패키지명 작성
@@ -251,4 +252,33 @@ SHA1: ~
 SHA-256: ~
 Valid until: 2053년 8월 5일 화요일
 ----------
+```
+
+1. google_sign_in 의존성 설치하기
+
+```yaml
+dependencies:
+  google_sign_in: ^6.3.0
+```
+
+2. Dart 코드 작성
+안드로이드는 Scheme 설정안해도 동작
+
+```dart
+    final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email'
+      ]
+    );
+
+    var user = await _googleSignIn.signIn();
+
+    setState(() {
+      _snsData = '구글 로그인 성공'
+          '\n사용자 정보 요청 성공'
+          '\n회원번호: ${user?.id}'
+          '\n닉네임: ${user?.displayName}'
+          '\n이메일: ${user?.email}'
+          '\n프로필 URL: ${user?.photoUrl}';
+    });
 ```
