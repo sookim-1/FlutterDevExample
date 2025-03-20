@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 void main() async {
   await dotenv.load(fileName: "assets/config/.env");
@@ -168,9 +169,24 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _touchedApple() {
+  void _touchedApple() async {
+    print('애플로그인 클릭');
+
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+
+    print(credential);
+
     setState(() {
-      _snsData = '애플 로그인';
+      _snsData = '애플 로그인 성공'
+          '\n사용자 정보 요청 성공'
+          '\n회원번호: ${credential.userIdentifier}'
+          '\n닉네임: ${credential.givenName}'
+          '\n이메일: ${credential.email}';
     });
   }
 }

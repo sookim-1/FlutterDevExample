@@ -37,6 +37,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   kakao_flutter_sdk_user: ^1.9.5
   google_sign_in: ^6.3.0
+  sign_in_with_apple: ^6.1.4
 
 dev_dependencies:
   flutter_test:

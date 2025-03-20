@@ -225,6 +225,13 @@ android:exported="true">
 
 
 ## Google Login without Firebase (Firebase 사용하지 않고 구글로그인)
+
+> 참고링크
+ - [Flutter - Google Login 구현](https://velog.io/@qazws78941/FlutterGoogle-Login-%EA%B5%AC%ED%98%84)
+ - [Flutter - Social Login - Google_without firebase](https://velog.io/@tygerhwang/FLUTTER-Social-login-Googlewithoutfirebase)
+
+---
+
 - [Google Cloud Console](https://console.cloud.google.com/)로 이동하여 GCP(Google Cloud Platform) 프로젝트 생성
 - API 및 서비스 -> OAuth 동의화면 선택
 - API 및 서비스 -> 사용자 인증 정보 -> OAtuh 2.0 클라이언트 ID 추가
@@ -282,3 +289,43 @@ dependencies:
           '\n프로필 URL: ${user?.photoUrl}';
     });
 ```
+
+
+
+## Apple Login for iOS
+
+> 참고
+- [Flutter - AppleLogin 구현](https://velog.io/@qazws78941/FlutterApple-Login-%EA%B5%AC%ED%98%84)
+
+### 🍎 iOS 설정
+1. [애플 개발자](https://developer.apple.com/kr/)로 이동하여 Identifiers 식별자 등록을 진행합니다.
+순서 App IDs -> App -> Description 과 Bundle ID 등록 -> Capabilities의 `Sign In with Apple` 체크
+
+2. Keys 메뉴에서 앱에서 사용할 키 생성
+3. Xcode Capability에서 Sign in with Apple 추가
+
+### Flutter 구현
+[sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple) 패키지 추가
+
+```dart
+// 기본 제공 버튼과 함께 사용 - 커스텀버튼을 사용하고 싶다면 onPressd 내부 코드를 활용
+SignInWithAppleButton(
+  onPressed: () async {
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+      AppleIDAuthorizationScopes.email,
+      AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+    
+    print(credential);
+    
+    // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+    // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+  },
+);
+
+```
+
+🔥 `SignInWithAppleAuthorizationException(AuthorizationErrorCode.unknown, The operation couldn’t be completed. (com.apple.AuthenticationServices.AuthorizationError error 1000.`
+위의 에러가 발생한 경우 Build Settings의 entitlements 경로설정을 확인합니다.
