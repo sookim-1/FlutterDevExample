@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -142,10 +143,24 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _touchedFacebook() {
-    setState(() {
-      _snsData = '페이스북 로그인';
-    });
+  void _touchedFacebook() async {
+    print('페이스북 로그인 클릭');
+    final LoginResult result = await FacebookAuth.instance.login(permissions: ['email', 'public_profile']);
+
+    if (result.status == LoginStatus.success) {
+      final userData = await FacebookAuth.instance.getUserData();
+
+      setState(() {
+        _snsData = 'Facebook 로그인 성공'
+            '\n사용자 정보 요청 성공'
+            '\n회원번호: ${userData['id']}'
+            '\n닉네임: ${userData['name']}'
+            '\n이메일: ${userData['email']}';
+      });
+    } else {
+      print(result.status);
+      print(result.message);
+    }
   }
 
   void _touchedGoogle() async {

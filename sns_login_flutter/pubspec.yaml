@@ -38,6 +38,7 @@ dependencies:
   kakao_flutter_sdk_user: ^1.9.5
   google_sign_in: ^6.3.0
   sign_in_with_apple: ^6.1.4
+  flutter_facebook_auth: ^7.0.0
 
 dev_dependencies:
   flutter_test:

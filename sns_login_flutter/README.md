@@ -329,3 +329,9 @@ SignInWithAppleButton(
 
 🔥 `SignInWithAppleAuthorizationException(AuthorizationErrorCode.unknown, The operation couldn’t be completed. (com.apple.AuthenticationServices.AuthorizationError error 1000.`
 위의 에러가 발생한 경우 Build Settings의 entitlements 경로설정을 확인합니다.
+
+## Facebook Login
+[fluuter_facebook_auth](https://pub.dev/packages/flutter_facebook_auth) 패키지 추가
+[flutter_facebook_auth 공식문서](https://facebook.meedu.app/docs/7.x.x/intro) 참고
+
+공식문서를 참고하여 차례대로 진행합니다.

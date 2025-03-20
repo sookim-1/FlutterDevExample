@@ -3,6 +3,14 @@
         android:label="sns_login_flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="${FACEBOOK_APP_ID}" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="${FACEBOOK_CLIENT_TOKEN}"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

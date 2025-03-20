@@ -10,12 +10,25 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    def properties = new Properties()
+    file("${rootProject.projectDir}/../assets/config/.env").withInputStream { stream -> properties.load(stream) }
+
     def kakaoKey = {
-        def properties = new Properties()
-        file("${rootProject.projectDir}/../assets/config/.env").withInputStream { stream -> properties.load(stream) }
         def kakaoKey = properties.getProperty("KAKAO_NATIVE_APP_KEY")
         assert kakaoKey != null, "kakaoKey not set in .env"
         return kakaoKey
+    }()
+
+    def facebookAppId = {
+        def facebookAppId = properties.getProperty("FACEBOOK_APP_ID")
+        assert facebookAppId != null, "facebookAppId not set in .env"
+        return facebookAppId
+    }()
+
+    def facebookClientToken = {
+        def facebookClientToken = properties.getProperty("FACEBOOK_CLIENT_TOKEN")
+        assert facebookClientToken != null, "facebookClientToken not set in .env"
+        return facebookClientToken
     }()
 
     compileOptions {
@@ -38,7 +51,9 @@ android {
         versionName = flutter.versionName
 
         manifestPlaceholders += [
-                KAKAO_NATIVE_APP_KEY: kakaoKey
+                KAKAO_NATIVE_APP_KEY: kakaoKey,
+                FACEBOOK_APP_ID: facebookAppId,
+                FACEBOOK_CLIENT_TOKEN: facebookClientToken
         ]
     }
 
